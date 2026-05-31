@@ -1,0 +1,13 @@
+image_id,category,subcategory,color,pattern,sleeves,neckline,length,fit,fabric_type,occasion,season,image_path,description
+df_00001,dress,maxi dress,navy blue,floral,long sleeve,v-neck,ankle-length,slim fit,cotton blend,casual,summer,deepfashion/images/dress_00001.jpg,Navy blue floral maxi dress with v-neckline and long sleeves
+df_00002,t-shirt,crew neck t-shirt,white,solid,short sleeve,crew neck,regular,regular fit,cotton,casual,all-season,deepfashion/images/tshirt_00002.jpg,White crew neck t-shirt in 100% cotton
+df_00003,pants,skinny jeans,dark blue,solid,na,na,full length,slim fit,denim,casual,all-season,deepfashion/images/pants_00003.jpg,Dark blue skinny fit jeans in denim
+df_00004,jacket,blazer,navy,pinstripe,long sleeve,na,waist length,tailored,wool blend,formal,fall/winter,deepfashion/images/jacket_00004.jpg,Navy blue pinstripe blazer with tailored fit
+df_00005,top,blouse,cream,floral,3/4 sleeve,boat neck,regular,relaxed,satin,formal,fall,deepfashion/images/top_00005.jpg,Cream floral blouse with boat neck and 3/4 sleeves
+df_00006,dress,cocktail dress,red,solid,sleeveless,strapless,knee length,fitted,silk,formal,summer,deepfashion/images/dress_00006.jpg,Red strapless cocktail dress in silk
+df_00007,pants,leggings,black,solid,na,na,full length,slim fit,polyester+spandex,casual,all-season,deepfashion/images/pants_00007.jpg,Black slim fit leggings
+df_00008,jacket,denim jacket,light blue,solid,long sleeve,na,waist length,regular fit,denim,casual,all-season,deepfashion/images/jacket_00008.jpg,Light blue denim jacket with regular fit
+df_00009,top,tank top,pink,solid,sleeveless,scoop neck,regular,relaxed,cotton,casual,summer,deepfashion/images/top_00009.jpg,Pink scoop neck tank top
+df_00010,dress,shirt dress,white,striped,long sleeve,button collar,knee length,regular fit,cotton,casual,summer,deepfashion/images/dress_00010.jpg,White striped shirt dress with button collar
+fg_00001,dress,evening gown,black,solid,long sleeve,halter,floor length,fitted,satin,formal,fall/winter,fashiongen/images/gown_00001.png,Black elegant evening gown with halter neck
+fg_00002,top,sweater,grey,chevron,long sleeve,crew neck,regular,relaxed,wool,casual,winter,fashiongen/images/sweater_00002.png,Grey chevron pattern crew neck sweater

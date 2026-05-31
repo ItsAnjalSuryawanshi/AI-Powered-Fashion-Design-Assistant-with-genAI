@@ -1,0 +1,47 @@
+Week 1: Fashion Domain Research Summary
+Intern: Anjal Suryawanshi
+Project: AI-Powered Fashion Design Assistant with Generative Models
+
+
+Part 1: Fashion Design Workflow (Sketch to Garment)
+Stage 1: Concept & Inspiration
+What happens: Designer researches trends, creates mood boards, selects color palettes
+
+AI Application: Generate mood boards using Stable Diffusion with text prompts like "summer dress pastel colors bohemian style"
+
+Stage 2: Sketching
+What happens: Draw fashion flats (technical sketches) using croquis templates
+
+AI Application: ControlNet for pose-guided sketch generation from text descriptions
+
+Stage 3: Technical Drawing
+What happens: Add measurements, stitch details, fabric notes to flat sketches
+
+AI Application: DeepFashion dataset landmarks (shoulder, neckline points) for garment alignment
+
+Stage 4: Pattern Making
+What happens: Create paper/digital patterns for each garment piece
+
+AI Application: AI generates pattern templates from 2D sketches
+
+Stage 5: Fabric Selection
+What happens: Choose materials (cotton, silk, denim) based on drape, texture, season
+
+AI Application: ChromaDB vector retrieval for fabric texture recommendations
+
+Stage 6: Sample Creation
+What happens: Sew first prototype garment
+
+AI Application: Generate fabric visualization on body using diffusion models
+
+Stage 7: Fitting & Alterations
+What happens: Fit on model, adjust measurements, pin for alterations
+
+AI Application: Pose-based garment fitting prediction using ControlNet
+
+Stage 8: Production
+What happens: Mass manufacturing, quality control, packaging
+
+AI Application: Automated quality inspection using computer vision
+
+Key Insight for AI Assistant: At each stage, the AI should suggest: style options, color combinations, fabric pairings, and design improvements based on trending data.
