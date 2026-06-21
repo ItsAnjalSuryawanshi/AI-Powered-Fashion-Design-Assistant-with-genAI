@@ -1,0 +1,106 @@
+# Week 4 Submission Report: LoRA Fine-Tuning for Brand Style
+
+
+**Project:** AI-Powered Fashion Design Assistant with Generative Models
+
+
+---
+
+## Objective
+
+The objective of Week 4 was to understand how fashion-specific styles can be incorporated into image generation models using LoRA concepts and prompt-based style conditioning. This week focused on exploring different fashion aesthetics, implementing style switching through prompts, and evaluating generated outputs using CLIP similarity scores.
+
+---
+
+## Tasks Completed
+
+### 1. Study of LoRA Fine-Tuning
+
+I researched the concept of LoRA (Low-Rank Adaptation) and understood how it is used to customize large diffusion models without retraining the complete model. LoRA allows a model to learn specific styles while requiring significantly fewer trainable parameters.
+
+I explored how fashion brands can use LoRA adapters to generate designs that match their unique visual identity.
+
+---
+
+### 2. Style-Based Fashion Generation
+
+Using Stable Diffusion, I developed a Python-based fashion image generation pipeline capable of generating images based on different fashion aesthetics.
+
+Two sample style categories were tested:
+
+* Cyberpunk Techwear Style
+* Minimalist Haute Couture Style
+
+The generation process used custom style tokens within prompts to influence the appearance of the generated fashion designs.
+
+Example prompts:
+
+* Modular utility cargo jacket with industrial buckles and straps (Cyberpunk Style)
+* Asymmetrical flowing luxury evening dress (Minimalist Style)
+
+---
+
+### 3. Prompt Token Style Switching
+
+A style-switching mechanism was implemented using prompt engineering.
+
+Different fashion identities were activated by changing the style tokens inside the prompt:
+
+* `cybpng style`
+* `mnmlst style`
+
+This approach allowed the same generation pipeline to create visually different outputs without modifying the base model architecture.
+
+---
+
+### 4. CLIP-Based Evaluation
+
+To evaluate image-text alignment, OpenAI's CLIP model was integrated into the pipeline.
+
+The generated image and target style description were processed through CLIP to calculate similarity scores.
+
+This helped measure how closely the generated image matched the intended fashion concept.
+
+Examples of evaluation concepts:
+
+* Futuristic cyberpunk tactical techwear garment design
+* Clean minimalist elegant high-fashion couture dress
+
+---
+
+## Technologies Used
+
+* Python
+* PyTorch
+* Stable Diffusion
+* Hugging Face Diffusers
+* CLIP Model
+* PIL (Python Imaging Library)
+
+---
+
+## Key Learnings
+
+During this week, I learned:
+
+* Fundamentals of LoRA fine-tuning for diffusion models.
+* How style-specific fashion generation can be achieved through prompt engineering.
+* Integration of Stable Diffusion pipelines in Python.
+* Use of CLIP for image-text similarity evaluation.
+* Memory optimization techniques for CPU and GPU environments.
+
+---
+
+## Challenges Faced
+
+The major challenge was limited hardware resources for training a complete LoRA model. Due to computational requirements, full LoRA training was not performed locally.
+
+To overcome this limitation, I implemented a style-conditioned generation workflow and CLIP evaluation pipeline to understand the practical workflow used in real-world fashion AI systems.
+
+---
+
+## Conclusion
+
+Week 4 helped me understand how custom fashion styles can be incorporated into generative AI systems. I successfully built a fashion generation pipeline using Stable Diffusion, implemented prompt-based style switching, and evaluated outputs using CLIP similarity metrics.
+
+This work forms the foundation for future development of a personalized AI Fashion Design Assistant capable of generating designs based on specific brand aesthetics and user preferences.
