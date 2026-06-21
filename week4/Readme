@@ -1,0 +1,41 @@
+# Week 4 - LoRA Fine-Tuning for Brand Style
+
+## Intern
+
+Anjal Suryawanshi
+
+## Project
+
+AI-Powered Fashion Design Assistant with Generative Models
+
+## Objectives
+
+* Understand LoRA fine-tuning workflow
+* Explore fashion brand aesthetics
+* Implement prompt-token based style switching
+* Generate style-specific fashion designs
+* Evaluate outputs using CLIP similarity metrics
+
+## Technologies Used
+
+* Python
+* Stable Diffusion
+* Hugging Face Diffusers
+* CLIP
+* PyTorch
+
+## Outputs
+
+1. Cyberpunk Techwear Style Design
+2. Minimalist Haute Couture Style Design
+
+## Evaluation
+
+Generated images were evaluated using CLIP similarity scores to measure alignment between generated fashion designs and target style descriptions.
+
+## Learning Outcomes
+
+* Understanding of LoRA architecture
+* Style conditioning through prompt engineering
+* CLIP-based image-text evaluation
+* Fashion AI workflow development
