@@ -1,0 +1,13 @@
+chromadb==0.4.22
+openai-clip
+torch
+torchvision
+Pillow
+numpy
+requests
+sentence-transformers==2.7.0
+transformers==4.40.0
+tqdm
+pandas
+matplotlib
+gradio==4.31.0

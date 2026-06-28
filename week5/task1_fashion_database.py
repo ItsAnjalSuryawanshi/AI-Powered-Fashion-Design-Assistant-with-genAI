@@ -1,0 +1,233 @@
+"""
+Week 5 – Task 1: Fashion Knowledge & Trend Database
+=====================================================
+Builds a structured fashion knowledge base with:
+- Style categories, trend metadata, and design attributes
+- Season/occasion/mood tagging
+- Ready for CLIP embedding in the next step
+"""
+
+import json
+import os
+from datetime import datetime
+
+# ─────────────────────────────────────────────
+# FASHION KNOWLEDGE BASE
+# ─────────────────────────────────────────────
+
+FASHION_KNOWLEDGE_BASE = [
+    # ── STYLES ──────────────────────────────
+    {
+        "id": "style_001",
+        "type": "style",
+        "name": "Minimalist",
+        "description": "Clean lines, neutral tones, and understated silhouettes. Focuses on quality over quantity with monochromatic palettes.",
+        "colors": ["white", "black", "beige", "grey", "ivory"],
+        "fabrics": ["cotton", "linen", "silk", "cashmere"],
+        "occasions": ["office", "casual", "evening"],
+        "season": ["all-season"],
+        "mood": ["calm", "sophisticated", "modern"],
+        "brands": ["COS", "The Row", "Jil Sander", "Toteme"],
+        "tags": ["minimalism", "clean", "timeless", "neutral"]
+    },
+    {
+        "id": "style_002",
+        "type": "style",
+        "name": "Bohemian",
+        "description": "Free-spirited, eclectic aesthetic with flowing fabrics, earthy tones, and artisanal details. Inspired by 1970s counter-culture.",
+        "colors": ["terracotta", "burnt orange", "mustard", "forest green", "cream"],
+        "fabrics": ["chiffon", "suede", "crochet", "denim", "lace"],
+        "occasions": ["festival", "casual", "beach", "travel"],
+        "season": ["spring", "summer"],
+        "mood": ["free-spirited", "artistic", "relaxed"],
+        "brands": ["Free People", "Anthropologie", "Spell"],
+        "tags": ["boho", "ethnic", "flowy", "vintage", "earthy"]
+    },
+    {
+        "id": "style_003",
+        "type": "style",
+        "name": "Streetwear",
+        "description": "Urban-inspired fashion blending sportswear, hip-hop culture, and skate aesthetics. Oversized fits, graphic prints, and bold logos.",
+        "colors": ["black", "white", "neon yellow", "red", "camo green"],
+        "fabrics": ["fleece", "nylon", "jersey", "denim", "mesh"],
+        "occasions": ["casual", "sport", "urban"],
+        "season": ["all-season"],
+        "mood": ["bold", "edgy", "youthful", "rebellious"],
+        "brands": ["Supreme", "Off-White", "Palace", "Stüssy", "BAPE"],
+        "tags": ["urban", "hype", "oversized", "graphic", "sneakers"]
+    },
+    {
+        "id": "style_004",
+        "type": "style",
+        "name": "Haute Couture",
+        "description": "Highest form of fashion craftsmanship. Hand-sewn garments with extraordinary detail, luxury fabrics, and bespoke tailoring.",
+        "colors": ["champagne", "ivory", "midnight blue", "deep red", "gold"],
+        "fabrics": ["silk organza", "duchesse satin", "tulle", "brocade", "velvet"],
+        "occasions": ["gala", "red carpet", "wedding", "formal"],
+        "season": ["all-season"],
+        "mood": ["luxurious", "dramatic", "artistic", "powerful"],
+        "brands": ["Chanel", "Dior", "Valentino", "Giambattista Valli", "Elie Saab"],
+        "tags": ["luxury", "couture", "handcrafted", "bespoke", "elegant"]
+    },
+    {
+        "id": "style_005",
+        "type": "style",
+        "name": "Y2K Revival",
+        "description": "Early 2000s nostalgia reimagined — low-rise jeans, butterfly clips, metallic fabrics, and playful cyber-inspired silhouettes.",
+        "colors": ["hot pink", "baby blue", "silver", "lavender", "lime green"],
+        "fabrics": ["vinyl", "mesh", "velour", "metallic lycra"],
+        "occasions": ["party", "casual", "festival"],
+        "season": ["spring", "summer"],
+        "mood": ["playful", "nostalgic", "futuristic", "fun"],
+        "brands": ["Juicy Couture", "Von Dutch", "Paris Hilton", "Blumarine"],
+        "tags": ["Y2K", "2000s", "retro-futurism", "pop", "metallic"]
+    },
+    {
+        "id": "style_006",
+        "type": "style",
+        "name": "Dark Academia",
+        "description": "Moody, intellectual aesthetic inspired by classic literature and elite universities. Layered tweed, plaid, and rich dark tones.",
+        "colors": ["burgundy", "dark brown", "forest green", "navy", "cream"],
+        "fabrics": ["tweed", "wool", "corduroy", "velvet", "leather"],
+        "occasions": ["casual", "academic", "autumn outings"],
+        "season": ["autumn", "winter"],
+        "mood": ["mysterious", "intellectual", "nostalgic", "gothic"],
+        "brands": ["Ralph Lauren", "Burberry", "Brooks Brothers"],
+        "tags": ["academia", "gothic", "literary", "layered", "vintage"]
+    },
+
+    # ── TRENDS ──────────────────────────────
+    {
+        "id": "trend_001",
+        "type": "trend",
+        "name": "Quiet Luxury",
+        "description": "Understated wealth signaling through impeccable craftsmanship and logoless designs. Muted palettes with premium materials.",
+        "season": "2024-2025",
+        "key_pieces": ["cashmere turtleneck", "tailored trousers", "leather loafers", "structured bag"],
+        "colors": ["oatmeal", "camel", "cream", "chocolate brown"],
+        "mood": ["refined", "understated", "affluent"],
+        "tags": ["stealth wealth", "old money", "logoless", "timeless"]
+    },
+    {
+        "id": "trend_002",
+        "type": "trend",
+        "name": "Dopamine Dressing",
+        "description": "Vibrant, mood-boosting fashion with maximalist color combinations. Wearing joy as self-expression.",
+        "season": "2024",
+        "key_pieces": ["color-block dress", "neon separates", "bold print co-ords", "bright accessories"],
+        "colors": ["cobalt blue", "hot pink", "tangerine", "electric yellow", "lime"],
+        "mood": ["joyful", "energetic", "optimistic"],
+        "tags": ["colorful", "maximalist", "bold", "expressive", "joyful"]
+    },
+    {
+        "id": "trend_003",
+        "type": "trend",
+        "name": "Gorpcore",
+        "description": "Outdoor technical wear adapted for everyday style. Hiking boots, fleece vests, and technical outerwear merged with fashion sensibility.",
+        "season": "2024-2025",
+        "key_pieces": ["trail runners", "fleece jacket", "cargo pants", "puffer vest", "technical backpack"],
+        "colors": ["olive", "rust", "navy", "stone", "forest green"],
+        "mood": ["adventurous", "functional", "rugged"],
+        "tags": ["outdoors", "technical", "utilitarian", "hiking", "functional fashion"]
+    },
+    {
+        "id": "trend_004",
+        "type": "trend",
+        "name": "Sheer Elegance",
+        "description": "Translucent and semi-sheer fabrics used as statement pieces — layered or standalone, both modest and daring.",
+        "season": "2025",
+        "key_pieces": ["sheer blouse", "organza skirt", "mesh overlay dress", "transparent trench"],
+        "colors": ["ivory", "blush", "black", "cobalt"],
+        "mood": ["romantic", "daring", "feminine", "ethereal"],
+        "tags": ["sheer", "transparent", "layering", "romantic", "SS2025"]
+    },
+
+    # ── DESIGN ELEMENTS ─────────────────────
+    {
+        "id": "element_001",
+        "type": "design_element",
+        "name": "Draped Silhouette",
+        "description": "Fabric artfully folded and draped around the body, creating fluid, goddess-like forms. Inspired by Grecian sculpture.",
+        "techniques": ["cowl draping", "bias cut", "asymmetric hem"],
+        "suitable_fabrics": ["silk", "jersey", "chiffon", "crepe"],
+        "occasions": ["evening", "red carpet", "resort"],
+        "tags": ["drape", "fluid", "grecian", "romantic", "goddess"]
+    },
+    {
+        "id": "element_002",
+        "type": "design_element",
+        "name": "Puff Sleeve",
+        "description": "Voluminous sleeves gathered at the shoulder, cuff, or both. Adds drama and femininity to any silhouette.",
+        "techniques": ["gathering", "smocking", "elastic casing"],
+        "suitable_fabrics": ["cotton poplin", "organza", "velvet", "linen"],
+        "occasions": ["casual", "party", "bridal"],
+        "tags": ["romantic", "dramatic", "vintage", "feminine", "volume"]
+    },
+    {
+        "id": "element_003",
+        "type": "design_element",
+        "name": "Asymmetric Hem",
+        "description": "Uneven hem that creates visual interest and movement. Ranges from subtle diagonal cuts to dramatic high-low silhouettes.",
+        "techniques": ["diagonal cut", "high-low hem", "handkerchief hem"],
+        "suitable_fabrics": ["chiffon", "silk", "jersey", "satin"],
+        "occasions": ["evening", "party", "resort"],
+        "tags": ["asymmetric", "modern", "dynamic", "editorial", "movement"]
+    },
+
+    # ── OCCASIONS ────────────────────────────
+    {
+        "id": "occasion_001",
+        "type": "occasion",
+        "name": "Office / Business Casual",
+        "description": "Professional yet approachable dressing for modern workplaces. Polished but not overly formal.",
+        "key_pieces": ["blazer", "trousers", "midi skirt", "button-down shirt", "loafers"],
+        "avoid": ["ripped denim", "flip flops", "overly revealing cuts"],
+        "style_tip": "Invest in a well-tailored blazer — it elevates any outfit instantly.",
+        "tags": ["work", "professional", "business", "polished"]
+    },
+    {
+        "id": "occasion_002",
+        "type": "occasion",
+        "name": "Beach / Resort",
+        "description": "Effortless vacation dressing — breezy, vibrant, and sun-ready. Cover-ups, sarongs, and statement swimwear.",
+        "key_pieces": ["kaftan", "linen co-ord", "straw hat", "slide sandals", "one-piece swimsuit"],
+        "avoid": ["heavy fabrics", "dark colors in peak heat", "impractical footwear on sand"],
+        "style_tip": "A printed kaftan over a swimsuit is the ultimate resort-to-lunch transition.",
+        "tags": ["beach", "resort", "vacation", "summer", "relaxed"]
+    },
+]
+
+# ─────────────────────────────────────────────
+# SAVE TO JSON
+# ─────────────────────────────────────────────
+
+def build_fashion_database(output_path: str = "data/fashion_knowledge_base.json"):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    db = {
+        "metadata": {
+            "version": "1.0",
+            "created_at": datetime.now().isoformat(),
+            "total_entries": len(FASHION_KNOWLEDGE_BASE),
+            "categories": {
+                "styles": len([e for e in FASHION_KNOWLEDGE_BASE if e["type"] == "style"]),
+                "trends": len([e for e in FASHION_KNOWLEDGE_BASE if e["type"] == "trend"]),
+                "design_elements": len([e for e in FASHION_KNOWLEDGE_BASE if e["type"] == "design_element"]),
+                "occasions": len([e for e in FASHION_KNOWLEDGE_BASE if e["type"] == "occasion"]),
+            }
+        },
+        "entries": FASHION_KNOWLEDGE_BASE
+    }
+
+    with open(output_path, "w") as f:
+        json.dump(db, f, indent=2)
+
+    print(f"✅ Fashion knowledge base saved → {output_path}")
+    print(f"   Total entries : {db['metadata']['total_entries']}")
+    for k, v in db['metadata']['categories'].items():
+        print(f"   {k:<18}: {v}")
+    return db
+
+
+if __name__ == "__main__":
+    build_fashion_database()
